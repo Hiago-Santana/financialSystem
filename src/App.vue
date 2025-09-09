@@ -1,6 +1,6 @@
 <template>
-  <div class=" mx-auto">
-    <app-header ></app-header>
+  <div class="">
+    <app-header></app-header>
   </div>
 
 </template>
