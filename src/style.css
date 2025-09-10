@@ -4,10 +4,10 @@
 @import "tailwindcss/theme.css" layer(theme);
 
 @theme {
-  --color-first: #162d4f;
-  --color-second: #1d3d6c;
-  --color-third: #cf5800;
-  --color-fourth: #1E293B;
+  --color-first: #1D4ED8;
+  --color-second: #FFFFFF;
+  --color-third: #09090B;
+  --color-fourth: #27272A;
   --color-fifth: #020817;
 
   --font-lexend: Lexend;

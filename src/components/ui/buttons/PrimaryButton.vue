@@ -47,7 +47,7 @@ const sizeClass = computed(() => ({
 }[props.size]))
 
 const colorClass = computed(() => ({
-  primary: 'bg-first text-white hover:bg-blue-700 dark:bg-blue-400 dark:text-black dark:hover:bg-blue-500',
+  primary: 'bg-third text-white hover:bg-third/85 dark:bg-second dark:text-black dark:hover:bg-second/85',
   secondary: 'bg-second text-white hover:bg-gray-600 dark:bg-fifth dark:text-white dark:hover:bg-gray-900',
   tertiary: 'bg-third text-white hover:bg-gray-600',
   quaternary: 'bg-white text-gray-700 border border-gray-300 hover:bg-first/50 dark:bg-transparent dark:text-white dark:border-gray-600',
