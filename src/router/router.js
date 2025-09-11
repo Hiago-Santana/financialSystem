@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import IndexHome from "../pages/home/IndexHome.vue";
 import IndexTransactions from "../pages/transactions/IndexTransactions.vue";
 import IndexReports from "../pages/reports/IndexReports.vue";
+import NewTransactionModal from "../pages/newTransaction/NewTransactionModal.vue";
 
 const routes = [
   {
@@ -10,15 +11,21 @@ const routes = [
     component: IndexHome,
   },
   {
-    path: "/transactions",
+    path: "/transacoes",
     name: "transactions",
     component: IndexTransactions,
   },
   {
-    path: "/reports",
+    path: "/relatorios",
     name: "reports",
     component: IndexReports,
   },
+  {
+    path: "/nova-transacao",
+    name: "newTransactionModal",
+    component: NewTransactionModal,
+  },
+
 ];
 
 const router = createRouter({

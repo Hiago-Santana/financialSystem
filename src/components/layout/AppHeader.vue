@@ -9,10 +9,16 @@
             </h1>
         </div>
         <div>
-            <primary-button label="+ Nova Transação"></primary-button>
+            <primary-button @click="goTo(router, 'newTransactionModal')" label="+ Nova Transação"></primary-button>
         </div>
     </div>
 </template>
 <script setup>
 import PrimaryButton from '../ui/buttons/PrimaryButton.vue';
+import { useRouter } from 'vue-router';
+import { goTo } from '../../router/navigationUtils';
+
+const router = useRouter();
+
+
 </script>

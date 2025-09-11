@@ -17,8 +17,8 @@ const router = useRouter();
 const route = useRoute();
 
 const pageActived = computed(() => route.name)
-const setActiveButton = ref('text-white bg-third rounded-md p-2 w-full font-semibold dark:bg-first transition-all duration-200');
-const setDesactiveButton = ref('bg-transparent rounded-md p-2 w-full font-semibold transition-all duration-200');
+const setActiveButton = ref('text-white bg-third rounded-md p-2 w-full font-semibold dark:bg-first transition-all duration-200 cursor-pointer');
+const setDesactiveButton = ref('bg-transparent rounded-md p-2 w-full font-semibold transition-all duration-200 cursor-pointer');
 
 const goRouter = (page) => {
     if (!router) return;
