@@ -3,11 +3,14 @@ export const goTo = (router, nameRouter, params = {}) => {
 }
 
 export const goBack = (router) => {
-  const isInternalReferrer = document.referrer.startsWith(window.location.origin)
+  // Verifica se existe um histórico interno para voltar
+  const canGoBack = window.history.state && window.history.state.back !== null
 
-  if (isInternalReferrer && window.history.length > 1) {
+  if (canGoBack) {
     router.back()
   } else {
+    // Fallback para a página inicial
     router.push('/')
   }
 }
+
