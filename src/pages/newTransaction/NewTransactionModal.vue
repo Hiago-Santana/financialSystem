@@ -18,7 +18,7 @@
                         </select>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <label class="font-semibold text-lg">Tipo</label>
+                        <label class="font-semibold text-lg">Descrição</label>
                         <input v-model="description" type="text" required placeholder="Ex: Salário, Supermercado..."
                             class="bg-gray-200 rounded-md p-2 dark:bg-fourth">
                     </div>
@@ -49,8 +49,10 @@
                     </div>
                 </div>
                 <div class="flex justify-center gap-6">
-                    <primary-button @click="goBack(router)" label="Cancelar" color="quaternary" size="lg"></primary-button>
-                    <primary-button label="Adicionar" color="primary" size="lg"></primary-button>
+                    <primary-button @click="goBack(router)" label="Cancelar" color="quaternary"
+                        size="lg"></primary-button>
+                    <primary-button @click="insertNewTrasaction()" label="Adicionar" color="primary"
+                        size="lg"></primary-button>
                 </div>
             </div>
         </div>
@@ -60,21 +62,76 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { goBack } from '../../router/navigationUtils';
+import { useIndexDb } from '../../composables/useIndexedDB';
 import PrimaryButton from '../../components/ui/buttons/PrimaryButton.vue';
 
 const router = useRouter();
 
+const { addTransaction, openDb } = useIndexDb();
 const type = ref(null);
 const description = ref(null);
 const category = ref('other');
 const inputValue = ref(null);
-const date = ref();
+const date = ref(null);
+const database = ref(null);
 
 
-onMounted(() => {
-    console.log("NewTransctionModal")
+onMounted(async () => {
+    database.value = await openDb();
+});
+
+const insertNewTrasaction = async () => {
+    try {
+        if (!database.value) {
+            database.value = await openDb();
+        }
+        if (!isData) throw new Error('Error in add transaction.');
+        if (!isData) throw new Error("Incomplete data");
+        const data = {
+            type: type.value,
+            description: description.value,
+            category: category.value,
+            inputValue: inputValue.value,
+            value: inputValue.value,
+            date: date.value
+        }
+
+        await addTransaction(data);
+
+    } catch (error) {
+        console.error("error: ", error);
+    }
+}
 
 
-})
+const isData = () => {
+    if (!checkType() && !checkDescription() && !checkCategory() && !checkInputValue() && !checkDate()) return false;
+    return true;
+}
+
+const checkType = () => {
+    if (!type.value) return false;
+    return true;
+}
+
+const checkDescription = () => {
+    if (!description.value) return false;
+    return true;
+}
+
+const checkCategory = () => {
+    if (!category.value) return false;
+    return true;
+}
+
+const checkInputValue = () => {
+    if (!inputValue.value) return false;
+    return true;
+}
+
+const checkDate = () => {
+    if (!date.value) return false;
+    return true;
+}
 
 </script>

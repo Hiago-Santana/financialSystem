@@ -1,9 +1,9 @@
 <template>
     <div>
-        <primary-button label="IndexHome"></primary-button>
+        <transaction-summary></transaction-summary>
     </div>
 </template>
 <script setup>
-import PrimaryButton from '../../components/ui/buttons/PrimaryButton.vue';
+import TransactionSummary from './components/TransactionSummary.vue';
 
 </script>
