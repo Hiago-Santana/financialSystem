@@ -25,7 +25,7 @@
                     <div class="flex flex-col gap-2">
                         <label class="font-semibold text-lg">Categoria</label>
                         <select v-model="category" class="bg-gray-200 rounded-md p-2 dark:bg-fourth">
-                            <option value="worke">Trabalho</option>
+                            <option value="work">Trabalho</option>
                             <option value="alimentanction">Alimentação</option>
                             <option value="transport">Transporte</option>
                             <option value="accounts">Contas</option>
@@ -62,13 +62,13 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { goBack } from '../../router/navigationUtils';
-import { useIndexDb } from '../../composables/useIndexedDB';
+import { openDb, addTransaction, listTransactions } from '../../composables/useIndexedDB';
 import PrimaryButton from '../../components/ui/buttons/PrimaryButton.vue';
 import DialogModal from '../../components/modals/DialogModal.vue';
 
 const router = useRouter();
 
-const { addTransaction, openDb } = useIndexDb();
+
 const type = ref(null);
 const description = ref(null);
 const category = ref('other');
@@ -95,13 +95,13 @@ const insertNewTrasaction = async () => {
             type: type.value,
             description: description.value,
             category: category.value,
-            inputValue: inputValue.value,
             value: inputValue.value,
             date: date.value
         }
 
-        const insert = await addTransaction(data);
-        if (insert) {
+        const result = await addTransaction(database.value, data);
+        if (result.success) {
+            console.log("result id", result.id)
             titleModal.value = 'Sucesso';
             messageModal.value = 'Transação inserida com sucesso!';
             showConfirmationModal.value = true;

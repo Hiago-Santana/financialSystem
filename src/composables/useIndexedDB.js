@@ -1,61 +1,54 @@
-import { ref } from 'vue';
+export function openDb() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("financialSystemDB", 1);
 
-export function useIndexDb() {
-    const db = ref(null);
-
-    async function openDb(name, version) {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(name, version);
-
-            request.onupgradeneeded = (event) => {
-                const database = event.target.result;
-
-                if(!database.objectStoreNames.contains("transactions")) {
-                    const store = database.createObjectStore("transactions", {
-                        keyPath: "id",
-                        autoIncrement: true
-                    });
-                    store.createIndex("id", "id", {unique: true});
-                } 
-            };
-
-            request.onsuccess = (event) => {
-                db.value = event.target.result;
-                resolve(db.value);
-            };
-
-            request.onerror = (event) => reject(event.target.error)
-        })
-    }
-
-    async function addTransaction(newTransaction) {
-        if(!db.value) throw new Error("Database not yet open");
-        
-        return new Promise((resolve, reject) => {
-            const trasaction = db.value.transaction(["transactions"], "readwrite");
-            const store = trasaction.objectStore("transactions");
-
-            const request = store.add(newTransaction);
-
-            request.onsuccess = () => resolve(true);
-            request.onerror = (event) => reject(event.target.error);
-        });
+    request.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains("transactions")) {
+        db.createObjectStore("transactions", { keyPath: "id", autoIncrement: true });
+      }
     };
 
-    async function listTransactions() {
-        if(!db.value) throw new Error("Database not yet open");
-
-        return new Promise((resolve, reject) => {
-            const trasaction = db.value.transaction(["transactions"], "readonly");
-            const store = trasaction.objectStore("transactions");
-
-            const request = store.getAll();
-
-            request.onsuccess = () => resolve(true);
-            request.onerror = (event) => reject(event.target.error);
-        });
+    request.onsuccess = (e) => {
+      resolve(e.target.result);
     };
 
-    return { db, openDb, addTransaction, listTransactions };
-
+    request.onerror = (e) => {
+      reject(e.target.error);
+    };
+  });
 }
+
+export function addTransaction(db, data) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction("transactions", "readwrite");
+    const store = tx.objectStore("transactions");
+    const request = store.add(data);
+
+    request.onsuccess = (e) => {
+      resolve({ success: true, id: e.target.result });
+    };
+
+    request.onerror = (e) => {
+      reject({ success: false, error: e.target.error });
+    };
+  });
+}
+
+export function listTransactions(db) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction("transactions", "readonly");
+    const store = tx.objectStore("transactions");
+    const request = store.getAll();
+
+    request.onsuccess = (e) => {
+      resolve(e.target.result);
+    };
+
+    request.onerror = (e) => {
+      reject(e.target.error);
+    };
+  });
+}
+
+
