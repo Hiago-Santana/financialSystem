@@ -56,7 +56,8 @@
             </div>
         </div>
     </form>
-    <dialog-modal v-if="showConfirmationModal" :title="titleModal" :message="messageModal" @close="showConfirmationModal = false, goBack(router)"></dialog-modal>
+    <dialog-modal v-if="showConfirmationModal" :title="titleModal" :message="messageModal"
+        @close="showConfirmationModal = false, goBack(router)"></dialog-modal>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -67,7 +68,6 @@ import PrimaryButton from '../../components/ui/buttons/PrimaryButton.vue';
 import DialogModal from '../../components/modals/DialogModal.vue';
 
 const router = useRouter();
-
 
 const type = ref(null);
 const description = ref(null);
@@ -100,17 +100,7 @@ const insertNewTrasaction = async () => {
         }
 
         const result = await addTransaction(database.value, data);
-        if (result.success) {
-            console.log("result id", result.id)
-            titleModal.value = 'Sucesso';
-            messageModal.value = 'Transação inserida com sucesso!';
-            showConfirmationModal.value = true;
-        } else {
-            titleModal.value = 'Erro';
-            messageModal.value = 'Erro ao inserir transação!';
-            showConfirmationModal.value = true;
-        };
-
+        setDialogMessage(result.success);
     } catch (error) {
         console.error("error: ", error);
     }
@@ -145,5 +135,17 @@ const checkInputValue = () => {
 const checkDate = () => {
     if (!date.value) return false;
     return true;
+}
+
+const setDialogMessage = (result) => {
+    if (result) {
+        titleModal.value = 'Sucesso';
+        messageModal.value = 'Transação inserida com sucesso!';
+        showConfirmationModal.value = true;
+    } else {
+        titleModal.value = 'Erro';
+        messageModal.value = 'Erro ao inserir transação!';
+        showConfirmationModal.value = true;
+    };
 }
 </script>
