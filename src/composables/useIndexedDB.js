@@ -32,7 +32,7 @@ export function useIndexDb() {
         if(!db.value) throw new Error("Database not yet open");
         
         return new Promise((resolve, reject) => {
-            const trasaction = db.value.transaction(["trasactions"], "readwrite");
+            const trasaction = db.value.transaction(["transactions"], "readwrite");
             const store = trasaction.objectStore("transactions");
 
             const request = store.add(newTransaction);
@@ -46,7 +46,7 @@ export function useIndexDb() {
         if(!db.value) throw new Error("Database not yet open");
 
         return new Promise((resolve, reject) => {
-            const trasaction = db.value.transaction(["trasactions"], "readonly");
+            const trasaction = db.value.transaction(["transactions"], "readonly");
             const store = trasaction.objectStore("transactions");
 
             const request = store.getAll();

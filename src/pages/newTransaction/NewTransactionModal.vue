@@ -5,14 +5,14 @@
                 class="flex flex-col gap-4 border bg-white dark:bg-third dark:border-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-md">
                 <div class="flex items-center justify-between">
                     <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Nova Transação</h2>
-                    <span @click="goBack(router)" class="material-symbols-outlined">
+                    <span @click="goBack(router)" class="material-symbols-outlined cursor-pointer">
                         close
                     </span>
                 </div>
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2">
                         <label class="font-semibold text-lg">Tipo</label>
-                        <select v-model="type" class="bg-gray-200 rounded-md p-2 dark:bg-fourth">
+                        <select v-model="type" required class="bg-gray-200 rounded-md p-2 dark:bg-fourth">
                             <option value="expense">Despesa</option>
                             <option value="revenue">Receita</option>
                         </select>
@@ -29,7 +29,6 @@
                             <option value="alimentanction">Alimentação</option>
                             <option value="transport">Transporte</option>
                             <option value="accounts">Contas</option>
-                            <option value="worke">Trabalho</option>
                             <option value="health">Saúde</option>
                             <option value="investment">Investimento</option>
                             <option value="leisure">Lazer</option>
@@ -39,7 +38,7 @@
                     </div>
                     <div class="flex flex-col gap-2">
                         <label class="font-semibold text-lg">Valor</label>
-                        <input v-model="inputValue" type="text" required placeholder="0,00"
+                        <input v-model="inputValue" type="number" required placeholder="0,00"
                             class="bg-gray-200 rounded-md p-2 dark:bg-fourth">
                     </div>
                     <div class="flex flex-col gap-2">
@@ -51,12 +50,13 @@
                 <div class="flex justify-center gap-6">
                     <primary-button @click="goBack(router)" label="Cancelar" color="quaternary"
                         size="lg"></primary-button>
-                    <primary-button @click="insertNewTrasaction()" label="Adicionar" color="primary"
+                    <primary-button type="submit" @click="insertNewTrasaction()" label="Adicionar" color="primary"
                         size="lg"></primary-button>
                 </div>
             </div>
         </div>
     </form>
+    <dialog-modal v-if="showConfirmationModal" :title="titleModal" :message="messageModal" @close="showConfirmationModal = false, goBack(router)"></dialog-modal>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -64,6 +64,7 @@ import { useRouter } from 'vue-router';
 import { goBack } from '../../router/navigationUtils';
 import { useIndexDb } from '../../composables/useIndexedDB';
 import PrimaryButton from '../../components/ui/buttons/PrimaryButton.vue';
+import DialogModal from '../../components/modals/DialogModal.vue';
 
 const router = useRouter();
 
@@ -74,6 +75,9 @@ const category = ref('other');
 const inputValue = ref(null);
 const date = ref(null);
 const database = ref(null);
+const showConfirmationModal = ref(false);
+const titleModal = ref(null);
+const messageModal = ref(null);
 
 
 onMounted(async () => {
@@ -85,8 +89,8 @@ const insertNewTrasaction = async () => {
         if (!database.value) {
             database.value = await openDb();
         }
-        if (!isData) throw new Error('Error in add transaction.');
-        if (!isData) throw new Error("Incomplete data");
+        if (!isData()) throw new Error('Error in add transaction.');
+        if (!isData()) throw new Error("Incomplete data");
         const data = {
             type: type.value,
             description: description.value,
@@ -96,7 +100,16 @@ const insertNewTrasaction = async () => {
             date: date.value
         }
 
-        await addTransaction(data);
+        const insert = await addTransaction(data);
+        if (insert) {
+            titleModal.value = 'Sucesso';
+            messageModal.value = 'Transação inserida com sucesso!';
+            showConfirmationModal.value = true;
+        } else {
+            titleModal.value = 'Erro';
+            messageModal.value = 'Erro ao inserir transação!';
+            showConfirmationModal.value = true;
+        };
 
     } catch (error) {
         console.error("error: ", error);
@@ -105,8 +118,8 @@ const insertNewTrasaction = async () => {
 
 
 const isData = () => {
-    if (!checkType() && !checkDescription() && !checkCategory() && !checkInputValue() && !checkDate()) return false;
-    return true;
+    if (checkType() && checkDescription() && checkCategory() && checkInputValue() && checkDate()) return true;
+    return false;
 }
 
 const checkType = () => {
@@ -133,5 +146,4 @@ const checkDate = () => {
     if (!date.value) return false;
     return true;
 }
-
 </script>
