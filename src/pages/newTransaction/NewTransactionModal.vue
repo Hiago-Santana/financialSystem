@@ -91,6 +91,9 @@ const insertNewTrasaction = async () => {
         }
         if (!isData()) throw new Error('Error in add transaction.');
         if (!isData()) throw new Error("Incomplete data");
+
+        setInputValue();
+        
         const data = {
             type: type.value,
             description: description.value,
@@ -147,5 +150,11 @@ const setDialogMessage = (result) => {
         messageModal.value = 'Erro ao inserir transação!';
         showConfirmationModal.value = true;
     };
+}
+
+const setInputValue = () => {
+    if(type.value === 'expense') {
+        inputValue.value = inputValue.value * -1; 
+    }
 }
 </script>
