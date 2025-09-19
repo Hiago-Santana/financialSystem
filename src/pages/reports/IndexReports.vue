@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <reports-header class="my-4"></reports-header>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <expense-by-category :transactions="transactions"></expense-by-category>
             <monthy-summary :transactions="transactions"></monthy-summary>            
         </div>
