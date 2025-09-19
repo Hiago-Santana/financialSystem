@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="font-semibold">R$ {{ formatMoney(transactions.value) }}</div>
+                        <div :class="transactions.value < 0 ? 'text-red-500' : 'text-green-700'" class="font-semibold">R$ {{ formatMoney(transactions.value) }}</div>
                         <div class="text-gray-500">{{ formatDate(transactions.date) }}</div>
                     </div>
                 </div>

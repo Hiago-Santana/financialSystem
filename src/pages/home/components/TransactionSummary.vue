@@ -4,7 +4,7 @@
             <div class="flex justify-between w-full p-2">
                 <span class="flex flex-col">
                     <span class="text-gray-600">Saldo Total</span>
-                    <span class="font-bold text-sm md:text-xl text-gray-800">R$  {{ formatMoney(sum) }}</span>
+                    <span :class="sum < 0 ? 'text-red-500' : 'text-green-700'" class="font-bold text-sm md:text-xl">R$  {{ formatMoney(sum) }}</span>
                 </span>
                 <span class="flex items-center justify-center rounded-md bg-gray-200 my-6">
                     <span class="material-symbols-outlined">
@@ -17,7 +17,7 @@
             <div class="flex justify-between w-full p-2">
                 <span class="flex flex-col">
                     <span class="text-gray-600">Receitas</span>
-                    <span class="font-bold text-sm md:text-xl text-gray-800">R$ {{ formatMoney(revenue) }}</span>
+                    <span class="font-bold text-sm md:text-xl text-green-700">R$ {{ formatMoney(revenue) }}</span>
                 </span>
                 <span class="flex items-center justify-center rounded-md text-green-500 bg-green-200 my-6">
                     <span class="material-symbols-outlined">
