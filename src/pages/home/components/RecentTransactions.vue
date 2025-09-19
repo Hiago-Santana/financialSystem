@@ -16,7 +16,7 @@
                             </span>
                         </div>
                         <div>
-                            <div class="font-semibold text-xl text-gray-700">{{ transactions.description }}</div>
+                            <div class="font-semibold text-xl text-gray-700 capitalize">{{ transactions.description }}</div>
                             <div class="text-gray-500">{{ translateCategory(transactions.category) }}</div>
                         </div>
                     </div>
