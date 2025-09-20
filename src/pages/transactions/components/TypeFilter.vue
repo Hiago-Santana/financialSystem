@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center ">
         <select @change="onChange" :value="category" class="rounded-md bg-gray-200 p-2 dark:bg-fourth">
-            <option value="all">Todas as categorias</option>
+            <option value="all">Todas os tipos</option>
             <option value="expense">Despesas</option>
             <option value="revenue">Receitas</option>
         </select>
