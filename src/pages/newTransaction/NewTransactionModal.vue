@@ -2,7 +2,7 @@
     <form @submit.prevent>
         <div class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs bg-black/20">
             <div
-                class="flex flex-col gap-4 border bg-white dark:bg-third dark:border-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-md">
+                class="flex flex-col gap-4 border bg-white border-gray-200 dark:bg-third dark:border-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-md">
                 <div class="flex items-center justify-between">
                     <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Nova Transação</h2>
                     <span @click="goBack(router)" class="material-symbols-outlined cursor-pointer">

@@ -8,7 +8,6 @@
       <router-view class="p-2"></router-view>
     </div>
   </div>
-
 </template>
 <script setup>
 import AppHeader from './components/layout/AppHeader.vue';
