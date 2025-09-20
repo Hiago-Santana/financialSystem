@@ -8,13 +8,13 @@
         </div>
         <table class="border border-gray-300 rounded-md overflow-hidden border-separate border-spacing-0 devide-y w-full dark:border-gray-800">
             <tr class="bg-gray-200 text-gray-800 dark:bg-fourth dark:text-gray-200">
-                <th>Descrição</th>
+                <th class="py-1">Descrição</th>
                 <th>Categoria</th>
                 <th>Data</th>
                 <th>Valor</th>
             </tr>
             <tr v-for="filtereds in filtered" :key="filtereds.id" class="text-center text-gray-600 dark:text-gray-300">
-                <td class="capitalize">{{ filtereds.description }}</td>
+                <td class="capitalize py-2">{{ filtereds.description }}</td>
                 <td>{{ translateCategory(filtereds.category) }}</td>
                 <td>{{ formatDate(filtereds.date) }}</td>
                 <td :class="filtereds.type === 'expense' ? 'text-red-500 font-semibold' : 'text-green-700 font-semibold'">R$ {{
