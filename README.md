@@ -17,7 +17,7 @@ O **financeControl** é uma aplicação web para gerenciamento financeiro pessoa
 ## Funcionalidades
 - Registrar transações (receita e despesa)  
 - Visualizar saldo, entradas e saídas  
-- Filtrar transações por categoria ou período  
+- Filtrar transações por categoria e tipo 
 - Relatórios mensais detalhados  
 - Suporte a tema escuro/claro de acordo com a configuração do dispositivo  
 
