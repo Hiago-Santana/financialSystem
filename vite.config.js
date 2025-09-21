@@ -8,5 +8,10 @@ export default defineConfig({
     vue(),
     tailwindcss(),
   ],
+    test: {
+    globals: true, 
+    environment: 'jsdom',
+     setupFiles: './tests/setup.js',
+  },
   base: './',
 })

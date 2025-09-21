@@ -1,5 +1,53 @@
-# Vue 3 + Vite
+README - financeControl
+Visão Geral
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+O financeControl é uma aplicação web para gerenciamento financeiro pessoal. Permite registrar e visualizar transações, acompanhar receitas, despesas e gerar relatórios financeiros. O app utiliza Vue.js com TailwindCSS e IndexedDB para armazenamento local.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+Tecnologias Utilizadas
+
+Frontend: Vue.js 3 (script setup) + TailwindCSS
+
+Armazenamento Local: IndexedDB (via vue-idb)
+
+Gerenciamento de Estado: Pinia
+
+Testes: Vitest
+
+Build & Dev: Vite
+
+Funcionalidades
+
+Registrar transações (receita e despesa)
+
+Visualizar saldo, entradas e saídas
+
+Filtrar transações por categoria e por tipo
+
+Relatórios mensais detalhados
+
+Suporte a tema escuro/claro de acordo com a configuração do dispositivo
+
+Instalação
+
+git clone https://github.com/Hiago-Santana/financialSystem
+cd financeControl
+npm install
+npm run dev       # Inicia o servidor de desenvolvimento
+npm run build     # Gera build de produção
+
+Testes
+
+Executar testes unitários:
+npm run test
+
+Contribuição
+
+Fork do projeto
+
+1. Crie uma branch para sua feature: git checkout -b feature/nome-da-feature
+
+2. Commit suas alterações: git commit -m "Descrição da alteração"
+
+3. Push para a branch: git push origin feature/nome-da-feature
+
+4. Abra um Pull Request
